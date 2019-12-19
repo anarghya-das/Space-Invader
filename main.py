@@ -10,14 +10,21 @@ SCREEN_HEIGHT = 600
 IMAGE_SIZE = 64
 score = 0
 font = pygame.font.Font(pygame.font.get_default_font(), 32)
-scoreX = 10
-scoreY = 10
+over = pygame.font.Font(pygame.font.get_default_font(), 64)
+scoreX, scoreY = 10, 10
+overX, overY = 250, 250
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+game_over = False
 
 
-def show_score(x, y):
+def show_score():
     s = font.render(f"Score : {str(score)}", True, (255, 255, 255))
-    screen.blit(s, (x, y))
+    screen.blit(s, (scoreX, scoreY))
+
+
+def show_over():
+    s = over.render(f"Game Over!", True, (255, 255, 255))
+    screen.blit(s, (overX, overY))
 
 
 pygame.display.set_caption("Space Invaders")
@@ -33,7 +40,7 @@ playerY = 480
 playerX_change = 0
 playerX_change_value = 3
 
-ENEMY_COUNT = 3
+ENEMY_COUNT = 6
 enemies = []
 enemyImg = pygame.image.load("enemy.png")
 enemyX_change_value = 4
@@ -112,42 +119,52 @@ running = True
 while running:
     screen.fill((0, 0, 0))
     screen.blit(background, (0, 0))
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:
-                playerX_change = -playerX_change_value
-            if event.key == pygame.K_RIGHT:
-                playerX_change = playerX_change_value
-            if event.key == pygame.K_ESCAPE:
+    if game_over:
+        show_over()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
                 running = False
-            if event.key == pygame.K_SPACE:
-                if not bullet_fired:
-                    bulletX, bulletY = fire_bullet(playerX, playerY)
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
-                playerX_change = 0
-    playerX += playerX_change
-    playerX = boundary_check(playerX)
-    for e in enemies:
-        enemy_update(e.x, e.x_change, e.y)
-        if bullet_fired:
-            if bulletY <= 0:
+    else:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    playerX_change = -playerX_change_value
+                if event.key == pygame.K_RIGHT:
+                    playerX_change = playerX_change_value
+                if event.key == pygame.K_ESCAPE:
+                    running = False
+                if event.key == pygame.K_SPACE:
+                    if not bullet_fired:
+                        bulletX, bulletY = fire_bullet(playerX, playerY)
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+                    playerX_change = 0
+        playerX += playerX_change
+        playerX = boundary_check(playerX)
+        for e in enemies:
+            if collision(e.x, e.y, playerX, playerY):
+                game_over = True
+                show_over()
+                break
+            enemy_update(e.x, e.x_change, e.y)
+            if bullet_fired:
+                if bulletY <= 0:
+                    bullet_fired = False
+                else:
+                    bulletY -= bullet_speed
+                    update_bullet(bulletX, bulletY)
+
+            if collision(bulletX, bulletY, e.x, e.y):
                 bullet_fired = False
-            else:
-                bulletY -= bullet_speed
-                update_bullet(bulletX, bulletY)
+                bulletX = playerX
+                bulletY = playerY
+                score += 1
+                e.set_x(random.randint(0, 800-IMAGE_SIZE))
+                e.set_y(random.randint(50, 150))
 
-        if collision(bulletX, bulletY, e.x, e.y):
-            bullet_fired = False
-            bulletX = playerX
-            bulletY = playerY
-            score += 1
-            e.set_x(random.randint(0, 800-IMAGE_SIZE))
-            e.set_y(random.randint(50, 150))
-
-        Enemy(e)
-    show_score(scoreX, scoreY)
-    Player(playerX, playerY)
+            Enemy(e)
+        show_score()
+        Player(playerX, playerY)
     pygame.display.update()
