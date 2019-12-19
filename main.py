@@ -6,6 +6,7 @@ pygame.init()
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 IMAGE_SIZE = 64
+score = 0
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Space Invaders")
 background = pygame.image.load("back.jpg")
@@ -106,12 +107,16 @@ while running:
     playerX = boundary_check(playerX)
     enemyX, enemyX_change, enemyY = enemy_update(enemyX, enemyX_change, enemyY)
     if bullet_fired:
-        if bulletY <= 0:
+        if bulletY <= 0 or collision(bulletX, bulletY, enemyX, enemyY):
             bullet_fired = False
         else:
             bulletY -= bullet_speed
             update_bullet(bulletX, bulletY)
-    # if not collision(bulletX, bulletY, enemyX, enemyY):
+    if collision(bulletX, bulletY, enemyX, enemyY):
+        score += 1
+        enemyX = random.randint(0, 800-IMAGE_SIZE)
+        enemyY = random.randint(50, 150)
+        print(score)
     Enemy(enemyX, enemyY)
     Player(playerX, playerY)
 
