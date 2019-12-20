@@ -14,7 +14,7 @@ def show_score(score):
 def show_over():
     over = pygame.font.Font(pygame.font.get_default_font(), 64)
     overX, overY = 250, 250
-    s = over.render(f"Game Over!", True, (255, 255, 255))
+    s = over.render("Game Over!", True, (255, 255, 255))
     screen.blit(s, (overX, overY))
 
 
@@ -185,7 +185,7 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Space Invaders")
 
 # Difficulty Values
-bullet_speed = 4
+bullet_speed = 3
 playerX_change_value = 4
 enemyX_change_value = 4
 enemyY_change = 20
