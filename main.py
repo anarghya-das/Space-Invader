@@ -5,6 +5,8 @@ from enemy import EnemyClass
 
 pygame.init()
 
+clock = pygame.time.Clock()
+FPS = 60
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 IMAGE_SIZE = 64
@@ -33,12 +35,12 @@ bullet = pygame.image.load("bullet.png")
 bullet_fired = False
 bulletX = 0
 bulletY = 0
-bullet_speed = 3
+bullet_speed = 4
 playerImg = pygame.image.load("player.png")
 playerX = 370
 playerY = 480
 playerX_change = 0
-playerX_change_value = 3
+playerX_change_value = 4
 
 ENEMY_COUNT = 6
 enemies = []
@@ -113,7 +115,8 @@ def collision(b_x, b_y, e_x, e_y):
     else:
         return False
 
-
+pressed_left=False
+pressed_right=False
 running = True
 
 while running:
@@ -130,17 +133,27 @@ while running:
                 running = False
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
-                    playerX_change = -playerX_change_value
+                    pressed_left=True
                 if event.key == pygame.K_RIGHT:
-                    playerX_change = playerX_change_value
+                    pressed_right=True
                 if event.key == pygame.K_ESCAPE:
                     running = False
                 if event.key == pygame.K_SPACE:
                     if not bullet_fired:
                         bulletX, bulletY = fire_bullet(playerX, playerY)
             if event.type == pygame.KEYUP:
-                if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
-                    playerX_change = 0
+                if event.key == pygame.K_LEFT:
+                    pressed_left=False
+                if event.key == pygame.K_RIGHT:
+                    pressed_right=False
+
+        if pressed_left:
+            playerX_change = -playerX_change_value
+        elif pressed_right:
+            playerX_change = playerX_change_value
+        else:
+            playerX_change = 0
+
         playerX += playerX_change
         playerX = boundary_check(playerX)
         for e in enemies:
@@ -168,3 +181,7 @@ while running:
         show_score()
         Player(playerX, playerY)
     pygame.display.update()
+    clock.tick(FPS)
+
+pygame.quit()
+quit()
