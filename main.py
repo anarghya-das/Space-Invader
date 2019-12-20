@@ -82,6 +82,11 @@ def collision(b_x, b_y, e_x, e_y):
         return False
 
 
+def end_game():
+    pygame.quit()
+    quit()
+
+
 def game(playerX_change_value, enemyX_change_value, enemyY_change, enemy_count, bullet_speed):
     playerImg = pygame.image.load("player.png")
     playerX = 370
@@ -114,10 +119,12 @@ def game(playerX_change_value, enemyX_change_value, enemyY_change, enemy_count, 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
+                    end_game()
         else:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
+                    end_game()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_LEFT:
                         pressed_left = True
@@ -125,6 +132,7 @@ def game(playerX_change_value, enemyX_change_value, enemyY_change, enemy_count, 
                         pressed_right = True
                     if event.key == pygame.K_ESCAPE:
                         running = False
+                        end_game()
                     if event.key == pygame.K_SPACE:
                         if not bullet_fired:
                             bulletX, bulletY = fire_bullet(
@@ -166,7 +174,7 @@ def game(playerX_change_value, enemyX_change_value, enemyY_change, enemy_count, 
                     e.set_x(random.randint(0, 800-IMAGE_SIZE))
                     e.set_y(random.randint(50, 150))
 
-                Enemy(e,enemyImg)
+                Enemy(e, enemyImg)
             show_score(score)
             Player(playerX, playerY, playerImg)
         pygame.display.update()
@@ -191,6 +199,17 @@ enemyX_change_value = 4
 enemyY_change = 20
 ENEMY_COUNT = 6
 
-game(playerX_change_value,enemyX_change_value,enemyY_change,ENEMY_COUNT,bullet_speed)
-pygame.quit()
-quit()
+
+def menu():
+    b = True
+    while b:
+        screen.fill((0, 0, 0))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+                end_game()
+
+
+# menu()
+game(playerX_change_value, enemyX_change_value,
+     enemyY_change, ENEMY_COUNT, bullet_speed)
