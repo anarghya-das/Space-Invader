@@ -156,7 +156,7 @@ def game(playerX_change_value, enemyX_change_value, enemyY_change, enemy_count, 
                         pressed_right = True
                     if event.key == pygame.K_ESCAPE:
                         running = False
-                        end_game()
+                        main()
                     if event.key == pygame.K_SPACE:
                         if not bullet_fired:
                             bulletX, bulletY = fire_bullet(
@@ -204,27 +204,7 @@ def game(playerX_change_value, enemyX_change_value, enemyY_change, enemy_count, 
         pygame.display.update()
         clock.tick(FPS)
 
-
-pygame.init()
-
-clock = pygame.time.Clock()
-FPS = 60
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
-IMAGE_SIZE = 64
-
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption("Space Invaders")
-
-# Difficulty Values
-bullet_speed = 3
-playerX_change_value = 5
-enemyX_change_value = 4
-enemyY_change = 20
-ENEMY_COUNT = 6
-
-
-def menu():
+def main():
     intro = True
     while intro:
         for event in pygame.event.get():
@@ -239,11 +219,29 @@ def menu():
                            math.floor(SCREEN_HEIGHT/2))
         screen.blit(TextSurf, TextRect)
         button("Play", screen, 150, 450, 100, 50,
-               (250, 250, 250), (200, 200, 200), (0, 0, 0), game, playerX_change_value, enemyX_change_value, enemyY_change, ENEMY_COUNT, bullet_speed)
+                (200, 200, 200),(250, 250, 250),(0, 0, 0), game, playerX_change_value, enemyX_change_value, enemyY_change, ENEMY_COUNT, bullet_speed)
         button("Quit", screen, 550, 450, 100, 50,
-               (255, 0, 0), (170, 1, 20), (255, 255, 255), end_game)
+              (170, 1, 20), (255, 0, 0), (255, 255, 255), end_game)
         pygame.display.update()
         clock.tick(FPS)
 
+if __name__ == "__main__":
+    pygame.init()
 
-menu()
+    clock = pygame.time.Clock()
+    FPS = 60
+    SCREEN_WIDTH = 800
+    SCREEN_HEIGHT = 600
+    IMAGE_SIZE = 64
+
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    pygame.display.set_caption("Space Invaders")
+
+    # Difficulty Values
+    bullet_speed = 3
+    playerX_change_value = 5
+    enemyX_change_value = 4
+    enemyY_change = 20
+    ENEMY_COUNT = 6
+
+    main()
