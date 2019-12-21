@@ -111,7 +111,7 @@ def end_game():
     quit()
 
 
-def game(playerX_change_value, enemyX_change_value, enemyY_change, enemy_count, bullet_speed):
+def game(playerX_change_value, enemyX_change_value, enemyY_change, enemy_count, bullet_speed,difficulty_step):
     playerImg = pygame.image.load("player.png")
     playerX = 370
     playerY = 480
@@ -156,7 +156,7 @@ def game(playerX_change_value, enemyX_change_value, enemyY_change, enemy_count, 
                         pressed_right = True
                     if event.key == pygame.K_ESCAPE:
                         running = False
-                        main()
+                        end_game()
                     if event.key == pygame.K_SPACE:
                         if not bullet_fired:
                             bulletX, bulletY = fire_bullet(
@@ -177,6 +177,7 @@ def game(playerX_change_value, enemyX_change_value, enemyY_change, enemy_count, 
 
             playerX += playerX_change
             playerX = boundary_check(playerX)
+
             for e in enemies:
                 if collision(e.x, e.y, playerX, playerY):
                     game_over = True
@@ -186,6 +187,8 @@ def game(playerX_change_value, enemyX_change_value, enemyY_change, enemy_count, 
                 if bullet_fired:
                     if bulletY <= 0:
                         bullet_fired = False
+                        if score > 0:
+                            score-=1
                     else:
                         bulletY -= bullet_speed
                         update_bullet(bulletX, bulletY, bullet)
@@ -200,6 +203,11 @@ def game(playerX_change_value, enemyX_change_value, enemyY_change, enemy_count, 
 
                 Enemy(e, enemyImg)
             show_score(score)
+            if score > 0 and score % difficulty_step == 0:
+                if (score // difficulty_step) + enemy_count != len(enemies):
+                    enemyX_change_value+=1
+                    enemyY_change+=5
+                    enemies.append(create_enemy(enemyX_change_value, enemyY_change))
             Player(playerX, playerY, playerImg)
         pygame.display.update()
         clock.tick(FPS)
@@ -219,7 +227,7 @@ def main():
                            math.floor(SCREEN_HEIGHT/2))
         screen.blit(TextSurf, TextRect)
         button("Play", screen, 150, 450, 100, 50,
-                (200, 200, 200),(250, 250, 250),(0, 0, 0), game, playerX_change_value, enemyX_change_value, enemyY_change, ENEMY_COUNT, bullet_speed)
+                (200, 200, 200),(250, 250, 250),(0, 0, 0), game, playerX_change_value, enemyX_change_value, enemyY_change, ENEMY_COUNT, bullet_speed,difficulty_step)
         button("Quit", screen, 550, 450, 100, 50,
               (170, 1, 20), (255, 0, 0), (255, 255, 255), end_game)
         pygame.display.update()
@@ -238,9 +246,10 @@ if __name__ == "__main__":
     pygame.display.set_caption("Space Invaders")
 
     # Difficulty Values
-    bullet_speed = 3
+    difficulty_step=10
+    bullet_speed = 5
     playerX_change_value = 5
-    enemyX_change_value = 4
+    enemyX_change_value = 5
     enemyY_change = 20
     ENEMY_COUNT = 6
 
