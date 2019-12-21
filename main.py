@@ -82,6 +82,25 @@ def collision(b_x, b_y, e_x, e_y):
         return False
 
 
+def text_objects(text, font, color):
+    textSurface = font.render(text, True, color)
+    return textSurface, textSurface.get_rect()
+
+
+def button(msg, gameDisplay, x, y, w, h, ic, ac, textColor):
+    mouse = pygame.mouse.get_pos()
+
+    if x+w > mouse[0] > x and y+h > mouse[1] > y:
+        pygame.draw.rect(gameDisplay, ac, (x, y, w, h))
+    else:
+        pygame.draw.rect(gameDisplay, ic, (x, y, w, h))
+
+    smallText = pygame.font.Font("freesansbold.ttf", 20)
+    textSurf, textRect = text_objects(msg, smallText, textColor)
+    textRect.center = (math.floor(x+(w/2)), math.floor(y+(h/2)))
+    gameDisplay.blit(textSurf, textRect)
+
+
 def end_game():
     pygame.quit()
     quit()
@@ -201,15 +220,27 @@ ENEMY_COUNT = 6
 
 
 def menu():
-    b = True
-    while b:
-        screen.fill((0, 0, 0))
+    intro = True
+    while intro:
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
+            if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
+                intro = False
                 end_game()
+        screen.fill((0, 0, 0))
+        largeText = pygame.font.Font('freesansbold.ttf', 82)
+        TextSurf, TextRect = text_objects(
+            "Space Invader", largeText, (255, 255, 255))
+        TextRect.center = (math.floor(SCREEN_WIDTH/2),
+                           math.floor(SCREEN_HEIGHT/2))
+        screen.blit(TextSurf, TextRect)
+        button("Play", screen, 150, 450, 100, 50,
+               (250, 250, 250), (200, 200, 200), (0, 0, 0))
+        button("Quit", screen, 550, 450, 100, 50,
+               (255, 0, 0), (170, 1, 20), (255, 255, 255))
+        pygame.display.update()
+        clock.tick(FPS)
 
 
-# menu()
-game(playerX_change_value, enemyX_change_value,
-     enemyY_change, ENEMY_COUNT, bullet_speed)
+menu()
+# game(playerX_change_value, enemyX_change_value,
+#      enemyY_change, ENEMY_COUNT, bullet_speed)
