@@ -87,11 +87,16 @@ def text_objects(text, font, color):
     return textSurface, textSurface.get_rect()
 
 
-def button(msg, gameDisplay, x, y, w, h, ic, ac, textColor):
+def button(msg, gameDisplay, x, y, w, h, ic, ac, textColor, action=None, *params):
     mouse = pygame.mouse.get_pos()
-
+    click = pygame.mouse.get_pressed()
     if x+w > mouse[0] > x and y+h > mouse[1] > y:
         pygame.draw.rect(gameDisplay, ac, (x, y, w, h))
+        if click[0] == 1 and action != None:
+            if len(params) == 0:
+                action()
+            else:
+                action(*params)
     else:
         pygame.draw.rect(gameDisplay, ic, (x, y, w, h))
 
@@ -213,7 +218,7 @@ pygame.display.set_caption("Space Invaders")
 
 # Difficulty Values
 bullet_speed = 3
-playerX_change_value = 4
+playerX_change_value = 5
 enemyX_change_value = 4
 enemyY_change = 20
 ENEMY_COUNT = 6
@@ -234,13 +239,11 @@ def menu():
                            math.floor(SCREEN_HEIGHT/2))
         screen.blit(TextSurf, TextRect)
         button("Play", screen, 150, 450, 100, 50,
-               (250, 250, 250), (200, 200, 200), (0, 0, 0))
+               (250, 250, 250), (200, 200, 200), (0, 0, 0), game, playerX_change_value, enemyX_change_value, enemyY_change, ENEMY_COUNT, bullet_speed)
         button("Quit", screen, 550, 450, 100, 50,
-               (255, 0, 0), (170, 1, 20), (255, 255, 255))
+               (255, 0, 0), (170, 1, 20), (255, 255, 255), end_game)
         pygame.display.update()
         clock.tick(FPS)
 
 
 menu()
-# game(playerX_change_value, enemyX_change_value,
-#      enemyY_change, ENEMY_COUNT, bullet_speed)
