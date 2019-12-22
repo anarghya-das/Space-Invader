@@ -33,3 +33,8 @@ Feel free to clone this repository and imporve this game! Follow the following s
 ``` [bash]
   pip install pygame
 ```
+
+## Assets
+
+Muisc and sounds in the game were downloaded from [freesound.org](https://freesound.org/)<br>
+Backgorund vectors in the game were downloaded from [freepik.com](www.freepik.com)
