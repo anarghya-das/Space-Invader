@@ -7,15 +7,22 @@ from enemy import EnemyClass
 def show_score(score):
     font = pygame.font.Font(pygame.font.get_default_font(), 32)
     scoreX, scoreY = 10, 10
-    s = font.render(f"Score : {str(score)}", True, WHITE)
+    s, rect = text_objects(f"Score : {str(score)}", font, WHITE)
     screen.blit(s, (scoreX, scoreY))
 
 
 def show_over():
-    over = pygame.font.Font(pygame.font.get_default_font(), 64)
-    overX, overY = 250, 250
-    s = over.render("Game Over!", True, WHITE)
-    screen.blit(s, (overX, overY))
+    over = pygame.font.Font('freesansbold.ttf', 82)
+    mediumText = pygame.font.Font('freesansbold.ttf', 42)
+    s, end = text_objects("Game Over!", over, WHITE)
+    end.center = (math.floor(SCREEN_WIDTH/2),
+                  math.floor(SCREEN_HEIGHT/2))
+    enter, rect = text_objects(
+        "Press Enter to Restart", mediumText, WHITE)
+    rect.center = (math.floor(SCREEN_WIDTH/2),
+                   math.floor(SCREEN_HEIGHT/2)+70)
+    screen.blit(s, end)
+    screen.blit(enter, rect)
 
 
 def create_enemy(enemyX_change_value, enemyY_change):
@@ -114,7 +121,7 @@ def end_game():
 def game(playerX_change_value, enemyX_change_value, enemyY_change, enemy_count, bullet_speed, difficulty_step):
     playerImg = pygame.image.load("player.png")
     playerX = 370
-    playerY = 480
+    playerY = 520
     playerX_change = 0
 
     enemies = []
@@ -144,6 +151,9 @@ def game(playerX_change_value, enemyX_change_value, enemyY_change, enemy_count, 
                 if event.type == pygame.QUIT:
                     running = False
                     end_game()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_RETURN:
+                        game_over = False
         else:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -220,7 +230,7 @@ def game(playerX_change_value, enemyX_change_value, enemyY_change, enemy_count, 
                 show_score(score)
                 if score > 0 and score % difficulty_step == 0:
                     if (score // difficulty_step) + enemy_count != len(enemies):
-                        enemyX_change_value += 1
+                        enemyX_change_value += 5
                         enemyY_change += 5
                         enemies.append(create_enemy(
                             enemyX_change_value, enemyY_change))
@@ -272,7 +282,7 @@ if __name__ == "__main__":
     bullet_speed = 5
     playerX_change_value = 5
     enemyX_change_value = 5
-    enemyY_change = 20
+    enemyY_change = 30
     ENEMY_COUNT = 6
 
     main()
