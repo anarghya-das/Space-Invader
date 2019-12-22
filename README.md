@@ -17,3 +17,8 @@ Basic game controls:
 - **Movement:** Move your spaceship using the right or left arrow keys.
 - **Laser:** Use spacebar to shoot laser towards your enemies.
 - **General:** Press escape to pause the game and enter to resume the game.
+
+## Screenshots 
+
+![menu](https://github.com/anarghya-das/Space-Invader/blob/master/assests/menu.png)
+![game](https://github.com/anarghya-das/Space-Invader/blob/master/assests/game.png)
