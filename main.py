@@ -125,18 +125,18 @@ def end_game():
 def game(playerX_change_value, enemyX_change_value, enemyY_change, enemy_count, bullet_speed, difficulty_step):
     pygame.mixer.music.play(-1)
 
-    playerImg = pygame.image.load("assests/player.png")
+    playerImg = pygame.image.load("assets/player.png")
     playerX = 370
     playerY = 500
     playerX_change = 0
 
     enemies = []
-    enemyImg = pygame.image.load("assests/enemy.png")
+    enemyImg = pygame.image.load("assets/enemy.png")
 
     for _ in range(enemy_count):
         enemies.append(create_enemy(enemyX_change_value, enemyY_change))
 
-    bullet = pygame.image.load("assests/bullet.png")
+    bullet = pygame.image.load("assets/bullet.png")
     bulletX = 0
     bulletY = 0
 
@@ -272,7 +272,7 @@ def main():
         clock.tick(FPS)
 
 
-# This is where the program starts, pygame is initialized, game window created and assests are loaded
+# This is where the program starts, pygame is initialized, game window created and assets are loaded
 if __name__ == "__main__":
     pygame.init()
 
@@ -286,11 +286,11 @@ if __name__ == "__main__":
     RED = (255, 0, 0)
 
     # Loading Assets
-    background = pygame.image.load("assests/back.jpg")
-    gameIcon = pygame.image.load("assests/player.png")
-    destroy = pygame.mixer.Sound("assests/destroy.wav")
-    laser = pygame.mixer.Sound("assests/laser.wav")
-    music = pygame.mixer.music.load("assests/music.wav")
+    background = pygame.image.load("assets/back.jpg")
+    gameIcon = pygame.image.load("assets/player.png")
+    destroy = pygame.mixer.Sound("assets/destroy.wav")
+    laser = pygame.mixer.Sound("assets/laser.wav")
+    music = pygame.mixer.music.load("assets/music.wav")
 
     # Creating the window with the resolution and setting the title
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
