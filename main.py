@@ -295,7 +295,7 @@ if __name__ == "__main__":
     # Creating the window with the resolution and setting the title
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_icon(gameIcon)
-    pygame.display.set_caption("Space Invaders")
+    pygame.display.set_caption("Space Invader")
 
     # Difficulty Values which can be modified to increase or decrease the game difficulty
     difficulty_step = 10  # After every 10 points scored the difficulty increases
