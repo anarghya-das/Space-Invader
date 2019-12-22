@@ -18,7 +18,7 @@ Basic game controls:
 - **Laser:** Use spacebar to shoot laser towards your enemies.
 - **General:** Press escape to pause the game and enter to resume the game.
 
-## Screenshots 
+## Screenshots
 
 ![menu](https://github.com/anarghya-das/Space-Invader/blob/master/assests/menu.png)
 ![game](https://github.com/anarghya-das/Space-Invader/blob/master/assests/game.png)
@@ -28,7 +28,8 @@ Basic game controls:
 Feel free to clone this repository and imporve this game! Follow the following steps before making any changes:
 
 - Install [Python3](https://www.python.org/)
-- Install [Pygame](https://www.pygame.org/), for Mac users follow this [link](https://www.pygame.org/wiki/macintosh) 
-	```
+- Install [Pygame](https://www.pygame.org/), for Mac users follow this [link](https://www.pygame.org/wiki/macintosh)
+
+``` [bash]
   pip install pygame
-  ```
+```
