@@ -20,8 +20,8 @@ Basic game controls:
 
 ## Screenshots
 
-![menu](https://github.com/anarghya-das/Space-Invader/blob/master/assests/menu.png)
-![game](https://github.com/anarghya-das/Space-Invader/blob/master/assests/game.png)
+![menu](https://github.com/anarghya-das/Space-Invader/blob/master/assets/menu.png)
+![game](https://github.com/anarghya-das/Space-Invader/blob/master/assets/game.png)
 
 ## Contribution
 
