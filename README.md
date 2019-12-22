@@ -6,7 +6,7 @@ A space shooter game created using [Pygame](https://www.pygame.org/). The main o
 
 For windows users, you can download the setup file [here](https://github.com/anarghya-das/Space-Invader/releases/download/1.1/Space.Invader-0.0.0-win32.msi) or look at the latest [release](https://github.com/anarghya-das/Space-Invader/releases). Install the game and go to the folder where you installed it and run **main.exe**.
 
-For Linux and Mac users, make sure you have python3 and pygame install (see contribution for more details). Clone or download this repository as a zip file and then run the main.py file.
+For Linux and Mac users, make sure you have python3 and pygame install (see [below](#contribution) for more details). Clone or download this repository as a zip file and then run the main.py file.
 
 ## Game Instructions
 
@@ -22,3 +22,13 @@ Basic game controls:
 
 ![menu](https://github.com/anarghya-das/Space-Invader/blob/master/assests/menu.png)
 ![game](https://github.com/anarghya-das/Space-Invader/blob/master/assests/game.png)
+
+## Contribution
+
+Feel free to clone this repository and imporve this game! Follow the following steps before making any changes:
+
+- Install [Python3](https://www.python.org/)
+- Install [Pygame](https://www.pygame.org/), for Mac users follow this [link](https://www.pygame.org/wiki/macintosh) 
+	```
+  pip install pygame
+  ```
