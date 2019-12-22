@@ -119,18 +119,20 @@ def end_game():
 
 
 def game(playerX_change_value, enemyX_change_value, enemyY_change, enemy_count, bullet_speed, difficulty_step):
-    playerImg = pygame.image.load("player.png")
+    pygame.mixer.music.play(-1)
+
+    playerImg = pygame.image.load("assests/player.png")
     playerX = 370
-    playerY = 520
+    playerY = 500
     playerX_change = 0
 
     enemies = []
-    enemyImg = pygame.image.load("enemy.png")
+    enemyImg = pygame.image.load("assests/enemy.png")
 
     for _ in range(enemy_count):
         enemies.append(create_enemy(enemyX_change_value, enemyY_change))
 
-    bullet = pygame.image.load("bullet.png")
+    bullet = pygame.image.load("assests/bullet.png")
     bulletX = 0
     bulletY = 0
 
@@ -146,6 +148,7 @@ def game(playerX_change_value, enemyX_change_value, enemyY_change, enemy_count, 
         screen.fill(BLACK)
         screen.blit(background, (0, 0))
         if game_over:
+            pygame.mixer.music.stop()
             show_over()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -154,6 +157,8 @@ def game(playerX_change_value, enemyX_change_value, enemyY_change, enemy_count, 
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN:
                         game_over = False
+                        pygame.mixer.music.play(-1)
+
         else:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -173,6 +178,7 @@ def game(playerX_change_value, enemyX_change_value, enemyY_change, enemy_count, 
                             bulletX, bulletY = fire_bullet(
                                 playerX, playerY, bullet)
                             bullet_fired = True
+                            laser.play()
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_LEFT:
                         pressed_left = False
@@ -220,6 +226,7 @@ def game(playerX_change_value, enemyX_change_value, enemyY_change, enemy_count, 
 
                     if collision(bulletX, bulletY, e.x, e.y):
                         bullet_fired = False
+                        destroy.play()
                         bulletX = 0
                         bulletY = 0
                         score += 1
@@ -275,8 +282,10 @@ if __name__ == "__main__":
 
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption("Space Invaders")
-    background = pygame.image.load("back.jpg")
-
+    background = pygame.image.load("assests/back.jpg")
+    destroy = pygame.mixer.Sound("assests/destroy.wav")
+    laser = pygame.mixer.Sound("assests/laser.wav")
+    music = pygame.mixer.music.load("assests/music.wav")
     # Difficulty Values
     difficulty_step = 10
     bullet_speed = 5
