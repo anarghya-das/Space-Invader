@@ -117,7 +117,7 @@ def end_game():
     pygame.quit()
     quit()
 
-
+# The game function in which the game actually runs, the parameters are passed to alter the difficulty of the game
 def game(playerX_change_value, enemyX_change_value, enemyY_change, enemy_count, bullet_speed, difficulty_step):
     pygame.mixer.music.play(-1)
 
@@ -245,7 +245,7 @@ def game(playerX_change_value, enemyX_change_value, enemyY_change, enemy_count, 
         pygame.display.update()
         clock.tick(FPS)
 
-
+# The main menu function which displays the title and has the buttons to start the game or exit
 def main():
     intro = True
     while intro:
@@ -268,6 +268,7 @@ def main():
         clock.tick(FPS)
 
 
+# This is where the program starts, pygame is initialized, game window created and assests are loaded
 if __name__ == "__main__":
     pygame.init()
 
@@ -280,14 +281,20 @@ if __name__ == "__main__":
     BLACK = (0, 0, 0)
     RED = (255, 0, 0)
 
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    pygame.display.set_caption("Space Invaders")
+    # Loading Assets
     background = pygame.image.load("assests/back.jpg")
+    gameIcon = pygame.image.load("assests/player.png")
     destroy = pygame.mixer.Sound("assests/destroy.wav")
     laser = pygame.mixer.Sound("assests/laser.wav")
     music = pygame.mixer.music.load("assests/music.wav")
-    # Difficulty Values
-    difficulty_step = 10
+
+    # Creating the window with the resolution and setting the title
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    pygame.display.set_icon(gameIcon)
+    pygame.display.set_caption("Space Invaders")
+
+    # Difficulty Values which can be modified to increase or decrease the game difficulty
+    difficulty_step = 10 # After every 10 points scored the difficulty increases 
     bullet_speed = 5
     playerX_change_value = 5
     enemyX_change_value = 5
