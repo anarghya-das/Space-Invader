@@ -11,17 +11,21 @@ def show_score(score):
     screen.blit(s, (scoreX, scoreY))
 
 
-def show_over():
+def show_over(score):
     over = pygame.font.Font('freesansbold.ttf', 82)
     mediumText = pygame.font.Font('freesansbold.ttf', 42)
     s, end = text_objects("Game Over!", over, WHITE)
     end.center = (math.floor(SCREEN_WIDTH/2),
                   math.floor(SCREEN_HEIGHT/2))
+    score, srect = text_objects(f"Final Score: {score}", mediumText, WHITE)
+    srect.center = (math.floor(SCREEN_WIDTH/2),
+                    math.floor(SCREEN_HEIGHT/2)+70)
     enter, rect = text_objects(
         "Press Enter to Restart", mediumText, WHITE)
     rect.center = (math.floor(SCREEN_WIDTH/2),
-                   math.floor(SCREEN_HEIGHT/2)+70)
+                   math.floor(SCREEN_HEIGHT/2)+120)
     screen.blit(s, end)
+    screen.blit(score, srect)
     screen.blit(enter, rect)
 
 
@@ -149,7 +153,7 @@ def game(playerX_change_value, enemyX_change_value, enemyY_change, enemy_count, 
         screen.blit(background, (0, 0))
         if game_over:
             pygame.mixer.music.stop()
-            show_over()
+            show_over(score)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
@@ -294,7 +298,7 @@ if __name__ == "__main__":
     pygame.display.set_caption("Space Invaders")
 
     # Difficulty Values which can be modified to increase or decrease the game difficulty
-    difficulty_step = 10 # After every 10 points scored the difficulty increases 
+    difficulty_step = 10  # After every 10 points scored the difficulty increases
     bullet_speed = 5
     playerX_change_value = 5
     enemyX_change_value = 5
