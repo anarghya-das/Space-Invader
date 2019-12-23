@@ -216,7 +216,7 @@ def game(playerX_change_value, enemyX_change_value, enemyY_change, enemy_count, 
                 for e in enemies:
                     if collision(e.x, e.y, playerX, playerY):
                         game_over = True
-                        show_over()
+                        show_over(score)
                         break
                     enemy_update(e)
                     if bullet_fired:
