@@ -20,8 +20,8 @@ Basic game controls:
 
 ## Screenshots
 
-![menu](https://github.com/anarghya-das/Space-Invader/blob/master/assests/menu.png)
-![game](https://github.com/anarghya-das/Space-Invader/blob/master/assests/game.png)
+![menu](https://github.com/anarghya-das/Space-Invader/blob/master/assets/menu.png)
+![game](https://github.com/anarghya-das/Space-Invader/blob/master/assets/game.png)
 
 ## Contribution
 
@@ -37,4 +37,4 @@ Feel free to clone this repository and imporve this game! Follow the following s
 ## Assets
 
 Muisc and sounds in the game were downloaded from [freesound.org](https://freesound.org/)<br>
-Backgorund vectors in the game were downloaded from [freepik.com](www.freepik.com)
+Background vectors in the game were downloaded from [freepik.com](www.freepik.com)
